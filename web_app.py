@@ -16,9 +16,9 @@ CELL_COORDINATES = [
 
 
 def generate_bingo_card():
-    numbers = random.sample(range(1, 76), 25)
-    card = [numbers[i*5:(i+1)*5] for i in range(5)]
-    card[2].insert(2, " ")
+    numbers = random.sample(range(1, 76), 24)
+    numbers.insert(12, " ")  # Insert blank space in the center
+    card = [numbers[i * 5:(i + 1) * 5] for i in range(5)]
     return card
 
 
