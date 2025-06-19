@@ -37,7 +37,11 @@ def add_numbers_to_image(image, numbers, font):
 def index():
     if request.method == 'POST':
         uploaded_file = request.files.get('template')
-        quantity = int(request.form.get('quantity', 1))
+        try:
+            qty = int(request.form.get("quantity", 1))
+        except ValueError:
+            qty = 1
+        qty = max(1, min(qty, 100))
         font_path = request.form.get('font_path', '').strip() or DEFAULT_FONT
         if not uploaded_file:
             return "Template required", 400
@@ -48,7 +52,7 @@ def index():
         template = Image.open(uploaded_file.stream).convert('RGBA')
         mem_zip = io.BytesIO()
         with zipfile.ZipFile(mem_zip, 'w') as zf:
-            for i in range(quantity):
+            for i in range(qty):
                 card = generate_bingo_card()
                 card_img = template.copy()
                 add_numbers_to_image(card_img, card, font)

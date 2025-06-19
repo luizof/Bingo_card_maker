@@ -14,6 +14,6 @@ This project generates bingo cards based on an uploaded template image. A small 
    docker run -p 5000:5000 bingo-maker
    ```
 
-3. Visit `http://localhost:5000` in your browser, upload a template image and choose how many cards to generate. The result will be downloaded as a ZIP file containing the generated images.
+3. Visit `http://localhost:5000` in your browser, upload a template image and choose how many cards to generate (between 1 and 100 per request). The result will be downloaded as a ZIP file containing the generated images.
 
 The card logic and text positioning mirror the behaviour of `script_v4.py`.
