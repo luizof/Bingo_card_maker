@@ -27,4 +27,4 @@ python script_v4.py --font-path /path/to/font.ttf
 ```
 
 The `--font-path` option is optional and defaults to
-`/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf`.
+the bundled `BAUHS93.ttf` font in this repository.

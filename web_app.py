@@ -3,10 +3,11 @@ from PIL import Image, ImageDraw, ImageFont
 import random
 import io
 import zipfile
+import os
 
 app = Flask(__name__)
 
-DEFAULT_FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+DEFAULT_FONT = os.path.join(os.path.dirname(__file__), "BAUHS93.ttf")
 
 CELL_COORDINATES = [
     (250 + x * 445, 550 + y * 380)

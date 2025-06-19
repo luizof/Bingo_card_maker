@@ -1,8 +1,9 @@
 from PIL import Image, ImageDraw, ImageFont
 import random
 import argparse
+import os
 
-DEFAULT_FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+DEFAULT_FONT = os.path.join(os.path.dirname(__file__), "BAUHS93.ttf")
 
 parser = argparse.ArgumentParser(description="Generate bingo cards from a template image")
 parser.add_argument(
