@@ -1,13 +1,23 @@
 from PIL import Image, ImageDraw, ImageFont
 import random
+import argparse
+
+DEFAULT_FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+
+parser = argparse.ArgumentParser(description="Generate bingo cards from a template image")
+parser.add_argument(
+    "--font-path",
+    default=DEFAULT_FONT,
+    help="Path to a .ttf font file used for drawing the numbers",
+)
+args = parser.parse_args()
 
 # Carregar o template
-template_path = 'Cartela Bingo Arraia do Lowis II.png'
+template_path = "Cartela Bingo Arraia do Lowis II.png"
 template = Image.open(template_path)
 
 # Definir a fonte
-font_path = 'C:\\WINDOWS\\FONTS\\BAUHS93.TTF'
-font = ImageFont.truetype(font_path, 200)  # Escala da fonte ajustada para 2,5 vezes maior
+font = ImageFont.truetype(args.font_path, 200)
 
 # Coordenadas das células na cartela (5x5) escaladas 2,5 vezes
 cell_coordinates = [
