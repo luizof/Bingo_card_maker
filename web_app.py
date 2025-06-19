@@ -27,8 +27,8 @@ def add_numbers_to_image(image, numbers, font):
     for i in range(5):
         for j in range(5):
             if not (i == 2 and j == 2):
-                x = 250 + j * 445
-                y = 550 + i * 380
+                idx = i * 5 + j
+                x, y = CELL_COORDINATES[idx]
                 number = numbers[i][j]
                 draw.text((x + 45, y + 45), f"{number:02}", fill="white", font=font, anchor="mm")
 
