@@ -18,9 +18,9 @@ cell_coordinates = [
 
 # Função para gerar uma cartela de bingo
 def generate_bingo_card():
-    numbers = random.sample(range(1, 76), 25)  # 24 números, pois a célula do meio será vazia
-    card = [numbers[i*5:(i+1)*5] for i in range(5)]
-    card[2].insert(2, ' ')  # Inserir célula do meio vazia
+    numbers = random.sample(range(1, 76), 24)  # 24 números para preencher as 24 células
+    numbers.insert(12, ' ')  # Inserir célula do meio vazia
+    card = [numbers[i * 5:(i + 1) * 5] for i in range(5)]
     return card
 
 # Função para adicionar números à imagem
