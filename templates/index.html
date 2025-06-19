@@ -3,20 +3,59 @@
   <head>
     <meta charset="utf-8">
     <title>Bingo Card Maker</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 2em;
+        background: #f5f5f5;
+        font-family: Arial, Helvetica, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      h1 {
+        margin-bottom: 1em;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+        background: #fff;
+        padding: 1.5em 2em;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      progress {
+        width: 100%;
+        height: 1.25em;
+      }
+      #download-link {
+        display: none;
+        margin-top: 1em;
+        padding: 0.5em 1em;
+        background: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+      }
+      #download-link:hover {
+        background: #0056b3;
+      }
+    </style>
   </head>
   <body>
     <h1>Bingo Card Maker</h1>
     <form id="generator-form" enctype="multipart/form-data">
-      <label>Template image: <input type="file" name="template" required></label><br>
-      <label>Number of cards: <input type="number" name="quantity" min="1" max="100" value="4"></label><br>
-      <label>Font path (optional): <input type="text" name="font_path" placeholder="BAUHS93.ttf"></label><br>
+      <label>Template image: <input type="file" name="template" required></label>
+      <label>Number of cards: <input type="number" name="quantity" min="1" max="100" value="4"></label>
+      <label>Font path (optional): <input type="text" name="font_path" placeholder="BAUHS93.ttf"></label>
       <input type="submit" value="Generate">
     </form>
-    <div style="margin-top:1em;">
-      <progress id="progress" value="0" max="1" style="display:none;width:300px;"></progress>
+    <div style="margin-top:1em; width: 100%; max-width: 400px;">
+      <progress id="progress" value="0" max="1" style="display:none;"></progress>
       <span id="progress-text"></span>
     </div>
-    <div><a id="download-link" href="#" style="display:none;">Download ZIP</a></div>
+    <a id="download-link" href="#">Download ZIP</a>
     <script>
       const form = document.getElementById('generator-form');
       const progress = document.getElementById('progress');

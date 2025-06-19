@@ -50,8 +50,17 @@ def _generate_job(job_id, template_bytes, qty, font_path):
         template = Image.open(io.BytesIO(template_bytes)).convert("RGBA")
         mem_zip = io.BytesIO()
         with zipfile.ZipFile(mem_zip, "w") as zf:
+            generated = set()
             for i in range(qty):
+                attempts = 0
                 card = generate_bingo_card()
+                card_tuple = tuple(tuple(row) for row in card)
+                while card_tuple in generated and attempts < 1000:
+                    card = generate_bingo_card()
+                    card_tuple = tuple(tuple(row) for row in card)
+                    attempts += 1
+                generated.add(card_tuple)
+
                 card_img = template.copy()
                 add_numbers_to_image(card_img, card, font)
                 img_bytes = io.BytesIO()
