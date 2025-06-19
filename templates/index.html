@@ -6,11 +6,52 @@
   </head>
   <body>
     <h1>Bingo Card Maker</h1>
-    <form action="/" method="post" enctype="multipart/form-data">
+    <form id="generator-form" enctype="multipart/form-data">
       <label>Template image: <input type="file" name="template" required></label><br>
       <label>Number of cards: <input type="number" name="quantity" min="1" max="100" value="4"></label><br>
       <label>Font path (optional): <input type="text" name="font_path" placeholder="BAUHS93.ttf"></label><br>
       <input type="submit" value="Generate">
     </form>
+    <div style="margin-top:1em;">
+      <progress id="progress" value="0" max="1" style="display:none;width:300px;"></progress>
+      <span id="progress-text"></span>
+    </div>
+    <div><a id="download-link" href="#" style="display:none;">Download ZIP</a></div>
+    <script>
+      const form = document.getElementById('generator-form');
+      const progress = document.getElementById('progress');
+      const progressText = document.getElementById('progress-text');
+      const downloadLink = document.getElementById('download-link');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        progress.style.display = 'block';
+        progress.value = 0;
+        progressText.textContent = '';
+        downloadLink.style.display = 'none';
+        const data = new FormData(form);
+        const res = await fetch('/start', {method: 'POST', body: data});
+        if (!res.ok) {
+          alert('Falha ao iniciar geração');
+          progress.style.display = 'none';
+          return;
+        }
+        const info = await res.json();
+        progress.max = info.qty;
+        const jobId = info.job_id;
+
+        const timer = setInterval(async () => {
+          const r = await fetch('/progress/' + jobId);
+          if (!r.ok) return;
+          const status = await r.json();
+          progress.value = status.progress;
+          progressText.textContent = `${status.progress}/${status.qty} cartelas`;
+          if (status.done) {
+            clearInterval(timer);
+            downloadLink.href = '/download/' + jobId;
+            downloadLink.style.display = 'inline';
+          }
+        }, 500);
+      });
+    </script>
   </body>
 </html>
